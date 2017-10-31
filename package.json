@@ -1,0 +1,15 @@
+{
+  "name": "disseminationtool",
+  "version": "1.0.0",
+  "description": "This is an automated tool used for the dissemination of scientific results and publications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marco Kühbauch",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}

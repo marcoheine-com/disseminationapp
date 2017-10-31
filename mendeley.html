@@ -1,0 +1,84 @@
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Automated tool for the dissemination of scientific publications</title>
+      <link rel="stylesheet" type="text/css" href="assets/css/disseminationtool.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+  </head>
+  <body class="disseminationtool">
+      <header class="disseminationtool__header">
+          <nav class="disseminationtool__navWrapper">
+              <a href="/disseminationtool" class="disseminationtool__logo">Automated Dissemination Tool</a>
+              <ul class="disseminationtool__nav">
+                  <li class="disseminationtool__navItem"><a href="/disseminationtool">About</a></li>
+                  <li class="disseminationtool__navItem"><a href="researchgate.html">ResearchGate</a></li>
+                  <li class="disseminationtool__navItem"><a href="mendeley.html">Mendeley</a></li>
+              </ul>
+          </nav>
+      </header>
+      <main>
+        <section class="disseminationtool__fullWidthColor">
+            <div class="disseminationtool__container">
+                <h2>Mendeley Publications</h2>
+                <section>
+                    <p>This page shows the usage of the <a href="http://dev.mendeley.com/" target="_blank" rel="noopener noreferrer">Mendeley API</a>
+                        and the <a href="https://github.com/Mendeley/mendeley-javascript-sdk" target="_blank" rel="noopener noreferrer">Mendeley JavaScript SDK</a>.
+                    The API is used to get all available Information and all Publications from a Users Mendeley Profile.</p>
+                    <p>This function loads all the data of a mendeley profile:</p>
+                    <code class="disseminationtool__code">
+                       <span class="disseminationtool__code--functionDecl">function</span><span class="disseminationtool__code--function disseminationtool__code--spanFunc">getProfile()</span> {<br>
+                            <pre class="disseminationtool__code--tabOne">MendeleySDK.API.profiles.<span class="disseminationtool__code--function">retrieveByEmail</span>(</pre><br>
+                                <pre class="disseminationtool__code--tabTwo">'myEmail@email.com'</pre><br>
+                            <pre class="disseminationtool__code--tabOne">)</pre><br>
+                        }
+                    </code>
+                    <p>This function loads all publications of a users mendeley library:</p>
+                    <code class="disseminationtool__code">
+                        <span class="disseminationtool__code--functionDecl">function</span><span class="disseminationtool__code--function disseminationtool__code--spanFunc">getDocuments()</span> {<br>
+                            <pre class="disseminationtool__code--tabOne">MendeleySDK.API.documents</pre><br>
+                            <pre class="disseminationtool__code--tabOne"><span class="disseminationtool__code--function">.list</span>({</pre><br>
+                                <pre class="disseminationtool__code--tabTwo">authored: true</pre><br>
+                            <pre class="disseminationtool__code--tabOne">})</pre><br>
+                        }
+                    </code>
+                    <p>In the following the loaded data is displayed. The Publications can be searched and several statistics are provided.</p>
+                    <p>Afterwards, for every new publication an automated tweet, Browser Push Notification and RSS Feed is served.</p>
+                </section>
+            </div>
+        </section>
+        <section class="mendeley-profile disseminationtool__container disseminationtool__mendeleyProfile">
+            <h2>Mendeley Profile</h3>
+            <p>You are viewing the Mendeley profile of: <span class="disseminationtool__profileName">Max Mustermann</span></p>
+            <p>All publications of <span class="disseminationtool__profileName">Max Mustermann</span> are available at: <a href="www.mendeley.com" target="_blank" rel="noopener noreferrer" class="disseminationtool__profileLink"><span class="disseminationtool__profileLinkSpan">www.mendeley.com</span></a></p>
+        </section>
+        <section class="disseminationtool__container disseminationtool__mendeleyPub">
+            <h2>Mendeley Publications List</h3>
+            <div class="disseminationtool__statsContainer">
+                <h4>Generell statistics about all publications</h4>
+                <div class="disseminationtool__stats">
+                    <p><i>Total publications:</i> <span class="disseminationtool__statsTotal"></span></p>
+                    <p><i>Authors:</i> <spand class="disseminationtool__statsAuthors"></span></p>
+                    <p><i>Types:</i> <span class="disseminationtool__statsType"></span></p>
+                </div>
+            </div>
+            <div class="disseminationtool__filter">
+                <h4>Search for publications</h4>
+                <input type="text" class="disseminationtool__input" placeholder="Search for a title or an author">
+            </div>
+            <div class="mendeley-results">
+            </div>
+        </section>
+      </main>
+      <footer class="disseminationtool__footer">
+        <div class="disseminationtool__footerContent">
+            <p>&copy; Marco Kühbauch 2017</p>
+            <a href="mailto:marcokuehbauch@gmail.com">Contact</a>
+        </div>
+      </footer>
+      <script type="text/javascript" src="mendeley-javascript-sdk/dist/standalone.js"></script>
+      <script type="text/javascript" src="assets/js/oauth-config.js"></script>
+      <script type="text/javascript" src="assets/js/mendeleyapi.js"></script>
+  </body>
+  </html>
