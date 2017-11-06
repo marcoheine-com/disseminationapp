@@ -1,0 +1,75 @@
+{
+  "name": "@mendeley/api",
+  "version": "8.4.0",
+  "description": "Mendeley API JavaScript SDK",
+  "directories": {
+    "example": "examples"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/jshint --config .jshintrc lib/**/*.js test/mocks/*.js test/spec/**/*.js",
+    "test": "npm run lint && node_modules/.bin/serial-jasmine test/spec/**/*.spec.js test/spec/*.spec.js && node_modules/karma/bin/karma start --single-run",
+    "test:coverage": "nyc --reporter=html --all serial-jasmine test/spec/**/*.spec.js test/spec/*.spec.js",
+    "start": "node examples/app.js",
+    "build-jsdoc": "node_modules/.bin/jsdoc -d docs/ lib/*.js lib/*/*.js",
+    "build-dist": "./node_modules/.bin/webpack && ./node_modules/.bin/webpack --minify",
+    "release-patch": "./node_modules/.bin/mversion patch --no-prefix -m 'Released patch version v%s'",
+    "release-minor": "./node_modules/.bin/mversion minor --no-prefix -m 'Released minor version v%s'",
+    "release-major": "./node_modules/.bin/mversion major --no-prefix -m 'Released major version v%s'"
+  },
+  "repository": {
+    "type": "git",
+    "url": " "
+  },
+  "keywords": [
+    "mendeley",
+    "sdk",
+    "api"
+  ],
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "bower": "^1.7.2",
+    "cookie-parser": "^1.3.3",
+    "es5-shim": "^4.5.9",
+    "es6-promise-promise": "^1.0.0",
+    "express": "^4.9.5",
+    "jasmine": "^2.4.1",
+    "jsdoc": "^3.3.0-alpha9",
+    "jshint": "^2.8.0",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-safari-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
+    "mversion": "^1.3.0",
+    "nyc": "^8.3.0",
+    "pre-commit": "^1.1.3",
+    "proxy-loader": "0.0.10",
+    "proxyquire": "^1.7.10",
+    "serial-jasmine": "^0.1.1",
+    "simple-oauth2": "^1.0.0",
+    "webpack": "^1.8.5"
+  },
+  "dependencies": {
+    "axios": "^0.14.0",
+    "form-urlencoded": "^1.4.1",
+    "object-assign": "^4.1.0"
+  },
+  "nyc": {
+    "exclude": [
+      "coverage",
+      "dist",
+      "examples",
+      "test",
+      "karma.conf.js",
+      "webpack.config.js"
+    ]
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
+}

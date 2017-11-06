@@ -1,0 +1,43 @@
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Automated tool for the dissemination of scientific publications</title>
+      <link rel="stylesheet" type="text/css" href="assets/css/disseminationtool.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+  </head>
+  <body class="disseminationtool">
+      <header class="disseminationtool__header">
+          <nav class="disseminationtool__navWrapper">
+              <a href="index.html" class="disseminationtool__logo">Automated Dissemination Tool</a>
+              <ul class="disseminationtool__nav">
+                  <li class="disseminationtool__navItem"><a href="index.html">About</a></li>
+                  <li class="disseminationtool__navItem"><a href="researchgate.html">ResearchGate</a></li>
+                  <li class="disseminationtool__navItem"><a href="mendeley.html">Mendeley</a></li>
+              </ul>
+          </nav>
+      </header>
+      <main class="">
+            <section id="researchgate" class="disseminationtool__fullWidthColor">
+                <div class="disseminationtool__container">
+                    <h2>ResearchGate Publications</h2>
+                    <p>This page shows the usage of the <a href="https://www.researchgate.net/developers.Plugins.html" target="_blank" rel="noopener noreferrer>">ResearchGate Plugins</a>.</p>
+                    <p>Unfortunately ResearchGate does not offer an API at the moment. In 2011 <a href="https://www.quora.com/Does-ResearchGate-offer-an-API-for-external-service-or-social-communities-in-order-to-crosspost-content-from-Facebook-i-e-to-ResearchGate" target="_blank" rel="noopener noreferrer"> they anounced to be working on it</a> and in 2013 <a href="https://thenextweb.com/insider/2013/06/04/researchgate-raises-35-million-series-c-from-bill-gates-and-tenaya-capital/#.tnw_Zaq3DjXh" target="_blank" rel="noopener noreferrer"> a timely release of an API was proclaimed</a>, but since then there were no other news about a ResearchGate API.</p>
+                    <p>They do offer at least plugins, which can be implemented on the website. These plugins fetch different sorts of data. Most interestingly they load all the publications of a department or institute, so a direct dissemination of scientific publications is possible.</p>
+                    <p>Since these plugins are implemented into a website as an iFrame, it is not possible to connect the loaded data to the automated notifications due to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener noreferrer"> Cross-Origin Resource Sharing</a>.</p>
+                </div>
+            </section>
+            <section class="disseminationtool__researchGate">
+                <div class="rg-plugin disseminationtool__container" data-stats="true" data-faces="true" data-publications="true" data-height="600" data-width="300" data-theme="light" data-type="department" data-installationId="59e86c494048542dc1214fe9" />
+            </section>
+      </main>
+      <footer class="disseminationtool__footer">
+        <div class="disseminationtool__footerContent">
+            <p>&copy; Marco Kühbauch 2017</p>
+            <a href="mailto:marcokuehbauch@gmail.com">Contact</a>
+        </div>
+      </footer>
+      <script type="text/javascript" src="assets/js/researchgateplugin.js"></script>
+  </body>
+  </html>
