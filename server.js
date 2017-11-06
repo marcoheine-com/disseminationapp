@@ -1,54 +1,68 @@
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
+const TwitterPackage = require('twitter');
+const twitterConfig = require('./public/assets/js/twitterconfig.js');
 
-http.createServer(function (request, response) {
-    console.log('request ', request.url);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true  }));
 
-    var filePath = '.' + request.url;
-    if (filePath == './')
-        filePath = './index.html';
+app.use(express.static(path.join(__dirname, 'public')));
 
-    var extname = String(path.extname(filePath)).toLowerCase();
-    var contentType = 'text/html';
-    var mimeTypes = {
-        '.html': 'text/html',
-        '.js': 'text/javascript',
-        '.css': 'text/css',
-        '.json': 'application/json',
-        '.png': 'image/png',
-        '.jpg': 'image/jpg',
-        '.gif': 'image/gif',
-        '.wav': 'audio/wav',
-        '.mp4': 'video/mp4',
-        '.woff': 'application/font-woff',
-        '.ttf': 'application/font-ttf',
-        '.eot': 'application/vnd.ms-fontobject',
-        '.otf': 'application/font-otf',
-        '.svg': 'application/image/svg+xml'
-    };
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
 
-    contentType = mimeTypes[extname] || 'application/octet-stream';
+app.post('/mendeley.html', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  storeDoc(JSON.stringify(req.body));
 
-    fs.readFile(filePath, function(error, content) {
-        if (error) {
-            if(error.code == 'ENOENT'){
-                fs.readFile('./404.html', function(error, content) {
-                    response.writeHead(200, { 'Content-Type': contentType });
-                    response.end(content, 'utf-8');
-                });
-            }
-            else {
-                response.writeHead(500);
-                response.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-                response.end();
-            }
-        }
-        else {
-            response.writeHead(200, { 'Content-Type': contentType });
-            response.end(content, 'utf-8');
-        }
-    });
+  // TEST - Uncomment to view the saved documents on the server
+  // console.log(documents);
+})
 
-}).listen(8125);
-console.log('Server running at http://127.0.0.1:8125/');
+
+const documents = [];
+
+function storeDoc(myDoc) {
+  let myServerDoc = JSON.parse(myDoc);
+  // if it its the first document on the server
+  if (documents.length === 0) {
+    documents.push({
+      title: myServerDoc.Title,
+      authors: myServerDoc.Author,
+      year: myServerDoc.Year
+    })
+    // prepare the tweet
+    let twitterStatus = `There is a new publication avaible: ${myServerDoc.Title}`;
+    postTweet(twitterStatus);
+  } else if (documents.length !== 0) {
+    // check if the document is already stored on the server
+    if (documents.find(checkDuplicates)) {
+      // It's already there, so do nothing
+    } else {
+      documents.push({
+        title: myServerDoc.Title,
+        authors: myServerDoc.Author,
+        year: myServerDoc.Year
+      })
+      let twitterStatus = `There is a new publication avaible: ${myServerDoc.Title}`;
+      postTweet(twitterStatus);
+    }
+  }
+  function checkDuplicates(document) {
+    return document.title === myServerDoc.Title;
+  }
+}
+
+// Twitter Notification
+var Twitter = new TwitterPackage(twitterConfig);
+
+function postTweet(twitterStatus) {
+  Twitter.post('statuses/update', {status: twitterStatus},  function(error, tweet, response){
+    if(error){
+      console.log(error);
+    }
+  });
+}
