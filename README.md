@@ -1,5 +1,5 @@
 # Automated Dissemination Tool
-As a part of the masterthesis "development of a communication and information concept for the dissemination of scientific results and publications" this automated tool was developed to improve the dissemination of scientific results and publications from the IRIXYS Center.
+As a part of the masterthesis **"development of a communication and information concept for the dissemination of scientific results and publications"** this automated tool was developed to improve the dissemination of scientific results and publications from the IRIXYS Center.
 
 ## Getting started
 
@@ -13,6 +13,7 @@ As a part of the masterthesis "development of a communication and information co
 ```
 cd disseminationtool
 ```
+
 
 4. Now the dependancies of the project need to be installed. For this, the Node Package Manager (npm) is used. In the terminal type:
 ```
@@ -38,36 +39,44 @@ The automated dissemination tool can now be used at: http://localhost:3000
 
 Once you switch to the mendeley subpage, the connection to the Mendeley API is established and a login into a Mendeley Account is required. Use these login data:
 
-username: disseminationtool@gmail.com
+**username:** disseminationtool@gmail.com
 
-password: irixysDissemination2k17
+**password:** irixysDissemination2k17
 
 Once the server is started and the connection to the Mendeley API is established
-+ all publications from the mendeley account will be loaded on the website
-+ they are stored in the localstorage of the browser and a browser push notification is enabled
-+ additionally the publications are stored on the server
-+ and a tweet about the new publication is sent. The tweets can be found at: https://twitter.com/Disseminatetool
+* all publications from the mendeley account will be loaded on the website
+
+* they are stored in the localstorage of the browser and a browser push notification is enabled
+
+* additionally the publications are stored on the server
+
+* and a tweet about the new publication is sent. The tweets can be found at: https://twitter.com/Disseminatetool
 
 ## Testing & Debugging
-To test the application there are other publication files available in the sample publication folder.
+To test the application there are other publication files available in the **sample publication** folder.
 
-Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running. Make sure to adjust the metadata like author, title and year on mendeley.
+Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running. **Make sure to add or adjust the metadata like author, title and year on mendeley.**
 
 Once you reload the page, the new data is loaded and new notifications are sent.
 
-There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific js file.
+There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific JavaScript file.
 
-In the file public/assets/js/mendeleyapi.js
-+ line 119: shows if a publication is already stored in the localstorage
-+ line 137: lists all publications stored in the localstorage
-+ line 263: shows the result of the fetch API
-+ line 275: shows if a publication is new to the localstorage, the content of a browser push notification
+In the file _public/assets/js/mendeleyapi.js_
+* line 119: shows if a publication is already stored in the localstorage
 
-These tests can be seen in the terminal as they are using the server-side code.
+* line 137: lists all publications stored in the localstorage
 
-In the file server.js
-+ line 22: shows all publications stored on the server
-+ line 68: shows the content of the sent tweet
+* line 263: shows the result of the fetch API
+
+* line 275: shows if a publication is new to the localstorage, the content of a browser push notification
+
+These tests can be seen in the terminal as they are running on the server.
+
+In the file _server.js_
+* line 22: shows all publications stored on the server
+
+* line 68: shows the content of the sent tweet
+
 
 To clear the localstorage of a browser type the following command in the developer tools console:
 ```
