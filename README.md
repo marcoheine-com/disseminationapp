@@ -37,13 +37,14 @@ strg + c
 
 The automated dissemination tool can now be used at: http://localhost:3000
 
-Once you switch to the mendeley subpage, the connection to the Mendeley API is established and a login into a Mendeley Account is required. Use these login data:
+Once you switch to the mendeley subpage, the connection to the **Mendeley API** is established and a login into a Mendeley Account is required. Use these login data:
 
 **username:** disseminationtool@gmail.com
 
 **password:** irixysDissemination2k17
 
 Once the server is started and the connection to the Mendeley API is established
+
 * all publications from the mendeley account will be loaded on the website
 
 * they are stored in the localstorage of the browser and a browser push notification is enabled
@@ -62,6 +63,7 @@ Once you reload the page, the new data is loaded and new notifications are sent.
 There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific JavaScript file.
 
 In the file _public/assets/js/mendeleyapi.js_
+
 * line 119: shows if a publication is already stored in the localstorage
 
 * line 137: lists all publications stored in the localstorage
@@ -73,6 +75,7 @@ In the file _public/assets/js/mendeleyapi.js_
 These tests can be seen in the terminal as they are running on the server.
 
 In the file _server.js_
+
 * line 22: shows all publications stored on the server
 
 * line 68: shows the content of the sent tweet
