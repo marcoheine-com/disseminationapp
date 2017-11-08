@@ -58,9 +58,9 @@ Once you reload the page, the new data is loaded and new notifications are sent.
 There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific js file.
 
 In the file public/assets/js/mendeleyapi.js
-+ line 138: shows if a publication is already stored in the localstorage
-+ line 152: lists all publications stored in the localstorage
-+ line 262: shows the result of the fetch API
++ line 119: shows if a publication is already stored in the localstorage
++ line 137: lists all publications stored in the localstorage
++ line 263: shows the result of the fetch API
 + line 275: shows if a publication is new to the localstorage, the content of a browser push notification
 
 These tests can be seen in the terminal as they are using the server-side code.
