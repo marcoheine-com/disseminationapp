@@ -44,8 +44,8 @@
                         }
                     </code>
                     <p>In the following the loaded data is displayed. The Publications can be searched and several statistics are provided.</p>
-                    <p>Here needs to be an addition concerning localstorage and storing the data/documents on the server</p>
-                    <p>Afterwards, for every new publication an automated tweet, Browser Push Notification and RSS Feed is served.</p>
+                    <p>Every publication gets stored locally in the localstorage and on the server.</p>
+                    <p>If a publication is new to the localstorage, meaning new to the current user, a browser push notification is sent out. If a publication is new to the storage on the server, meaning completely new to the database, a tweet is sent out.</p>
                 </section>
             </div>
         </section>
@@ -61,7 +61,6 @@
                 <div class="disseminationtool__stats">
                     <p><i>Total publications:</i> <span class="disseminationtool__statsTotal"></span></p>
                     <p><i>Authors:</i> <spand class="disseminationtool__statsAuthors"></span></p>
-                    <p><i>Types:</i> <span class="disseminationtool__statsType"></span></p>
                 </div>
             </div>
             <div class="disseminationtool__filter">

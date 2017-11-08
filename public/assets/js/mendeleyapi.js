@@ -1,4 +1,5 @@
 // ###### Mendeley API ######
+// Authentification with the API
 (() => {
   // OAuth2 Flow Configuration
   var config;
@@ -6,11 +7,9 @@
   if (typeof window.oauthImplicitGrantConfig === 'object') {
     MendeleySDK.API.setAuthFlow(MendeleySDK.Auth.implicitGrantFlow(window.oauthImplicitGrantConfig));
   } else {
-    // Auth code flow can be configured with a couple fo extra URLs...
     MendeleySDK.API.setAuthFlow(MendeleySDK.Auth.authCodeFlow({
     // The API authentication goes through server, so this URL clears cookies and forces a redirect
     apiAuthenticateUrl: '/login',
-    // You can optionally provide a URL on *your* server where the token can be refreshed
     refreshAccessTokenUrl: '/oauth/refresh'
     }));
   }
@@ -19,7 +18,8 @@
 // get all profile data
 function getProfile() {
   MendeleySDK.API.profiles.retrieveByEmail(
-    'marcokuehbauch@gmail.com'
+    // NEEDS FIX: must be changed to dissemination tool email
+    'disseminationtool@gmail.com'
   ).then(myProfile => {
     displayProfile(myProfile);
   });
@@ -44,119 +44,123 @@ function displayProfile(myProfile) {
   })
 }
 
-// get all the documents
+// get all the publications
 function getDocuments() {
   MendeleySDK.API.documents
   .list({
-    // this option is used to get all publications of the user
+    // this option is used to get all publications of the specified user
     authored: true
   })
   .then(docs => {
-    displayStats(docs);
     saveDocuments(docs);
   })
-  // .catch(function(response) {
-  //   console.log('Failed!');
-  //   console.log('Status:', response.status);
-  // });
 }
 getDocuments();
-
-// display stats about the publications
-function displayStats(docs) {
-  // total publications
-  const statsTotal = document.querySelector('.disseminationtool__statsTotal');
-  statsTotal.textContent = docs.length;
-
-  // all authors
-  const statsAuthors = document.querySelector('.disseminationtool__statsAuthors');
-  const allAuthors = [];
-  docs.forEach(doc => {
-    doc.authors.forEach(author => {
-      allAuthors.push(author.last_name);
-      if (author.first_name) { // if there is more than one author
-        allAuthors.push(author.first_name);
-      }
-    })
-  })
-  statsAuthors.textContent = allAuthors.join(', ');
-
-  // all types
-  const statsType = document.querySelector('.disseminationtool__statsType');
-  const allTypes = [];
-  docs.forEach(doc => {
-    let type = doc.type;
-    // capitalize first letter
-    type = type.charAt(0).toUpperCase() + type.slice(1);
-    // eliminate duplicates
-    if (allTypes.find(findType)) {
-      // do nothing
-    } else {
-      allTypes.push(type);
-    }
-    function findType(result) {
-      return result.type === allTypes.type;
-    }
-    statsType.textContent = allTypes.join(', ');
-  })
-
-}
-
 
 // get the already chached publications, if there are none, create an empty array
 const myDocs = JSON.parse(localStorage.getItem('myDocs')) || [];
 
-function saveDocuments(docs){
+// store the publications in an array
+function saveDocuments(docs) {
+  // author array for the statistics
+  const totalAuthors = []; // needs to exist additionally, because this one should eliminate duplicates
+
+  // a counter for the notifications needs to be added, to allow multiple notifications in firefox
+  let notificationCount = 0;
+
   docs.forEach(doc => {
     const allAuthors = [];
     // create an object for every publication
     const myDoc = new Object();
     myDoc.title = doc.title;
-    myDoc.year = doc.year;
-    doc.authors.forEach(author => {
-      allAuthors.push(author.last_name);
-      if (author.first_name) { // if there is more than one author
-        allAuthors.push(author.first_name);
-      }
-      myDoc.author = allAuthors.join(', ');
-    })
-    myDoc.abstract = doc.abstract;
+    if (doc.year) {
+      myDoc.year = doc.year;
+    } else {
+      myDoc.year = 'No year available'
+    }
+    if (doc.authors) {
+      doc.authors.forEach(author => {
+        allAuthors.push(author.last_name);
+        if (totalAuthors.includes(author.last_name)) {
+          // already existing, so do nothing
+        } else {
+          totalAuthors.push(author.last_name);
+        }
+        if (author.first_name) { // if there is more than one author
+          allAuthors.push(author.first_name);
+          if (totalAuthors.includes(author.first_name)) {
+            // already existing, so do nothing
+          } else {
+            totalAuthors.push(author.first_name);
+          }
+        }
+        myDoc.author = allAuthors.join(', ');
+      })
+    } else {
+      myDoc.author = 'No author available'
+    }
+    if (doc.abstract) {
+      myDoc.abstract = doc.abstract;
+    } else {
+      myDoc.abstract = 'No abstract available'
+    }
 
-    // send the document to the server
+    // send the publications to the server
     sendDataToServer(myDoc);
 
     // initial check for publications in the localstorage
     if (myDocs.length == 0) {
       myDocs.push(myDoc);
-      enableNotification(myDoc);
+      notificationCount++;
+      enableNotification(myDoc, notificationCount);
     } else if (myDocs.find(findTitle)) {  // Eliminate Duplicates
-      // Do nothing
+      // already existing, so do nothing
 
-      // TEST - Uncomment to check, which publications are already in the localstorage
-      // console.log('Already exists');
+      // TEST - Uncomment to check in dev tools (strg + shift + i), which publications are already in the localstorage
+      console.log(`The publication ${myDoc.title} is already stored in the localstorage.`);
+
     } else {
       myDocs.push(myDoc);
-      enableNotification(myDoc);
+      notificationCount++;
+      enableNotification(myDoc, notificationCount);
     }
+
     function findTitle(result) {
       return result.title === myDoc.title;
     }
+
   })
   // update the local storage
   localStorage.setItem('myDocs', JSON.stringify(myDocs));
 
-  // TEST - Uncomment to view all documents available in the localstorage
-  // console.table(JSON.parse(localStorage.getItem('myDocs')));
+  // TEST - Uncomment to view all publications available in the localstorage in the dev tools (strg + shift + i)
+  console.table(JSON.parse(localStorage.getItem('myDocs')));
+
+  displayTotalNum(myDocs);
+  displayAllAuthors(totalAuthors);
   displayDocuments(myDocs);
 }
 
-// display all documents
+// display the number of all publications in the statistics
+function displayTotalNum(docs) {
+  // total publications
+  const statsTotal = document.querySelector('.disseminationtool__statsTotal');
+  statsTotal.textContent = docs.length;
+}
+
+// display names of all authors in the statistics
+function displayAllAuthors(totalAuthors) {
+  const allAuthors = document.querySelector('.disseminationtool__statsAuthors');
+  allAuthors.textContent = totalAuthors.join(', ');
+}
+
+// display all publications
 function displayDocuments(docs) {
   let counter = 0;
   docs.forEach(displayOneDoc);
 }
 
-// initial display of one document
+// initial display of one publication
 function displayOneDoc(doc, counter) {
   const mendeleyResults = document.querySelector('.mendeley-results');
   counter++;
@@ -200,12 +204,12 @@ function displayOneDoc(doc, counter) {
   mendeleyResults.appendChild(result);
 }
 
-// event Listener for user  search input
+// event Listener for user search input
 const input = document.querySelector('.disseminationtool__input');
 input.addEventListener('change', initializeSearch);
 input.addEventListener('keyup', initializeSearch);
 
-// search for documents
+// prepare the search for publications
 function initializeSearch() {
   const resultDiv = document.querySelector('.mendeley-results');
   const input = document.querySelector('.disseminationtool__input');
@@ -233,25 +237,13 @@ function initializeSearch() {
   resultDiv.innerHTML = html;
 }
 
-// find the documents in the array
+// find the publications in the array
 function findDocuments(searchInput, arrray) {
   return myDocs.filter(doc => {
     const regex = new RegExp(searchInput, 'gi');
     return doc.title.match(regex) || doc.author.match(regex);
   });
 }
-
-window.addEventListener('load', function () {
-  // Check if permission for notification is available
-  // If not, ask for it
-  if (window.Notification && Notification.permission !== "granted") {
-    Notification.requestPermission(function (status) {
-      if (Notification.permission !== status) {
-        Notification.permission = status;
-      }
-    });
-  }
-});
 
 function sendDataToServer(myDoc) {
   // using the fetch API to send the data to the server
@@ -267,25 +259,38 @@ function sendDataToServer(myDoc) {
       Year: myDoc.year,
     }),
   })
-  .then(function (response) {
-    console.log('Request succeeded with JSON response' + response);
-  })
-  .catch(function (error) {
-    console.log('Request failed', error);
-  });
+  // TEST - Uncomment to debug the fetch API in the dev tools (strg + shift + i)
+  // .then(function (response) {
+  //   console.log('Request succeeded with JSON response' + response);
+  // })
+  // .catch(function (error) {
+  //   console.log('Request failed', error);
+  // });
 }
 
 // ### Notifications ###
 // function to build notifications
-function enableNotification(myDoc) {
-  // TEST - Uncomment to view the new local publications
-  console.log(`There is a new Publication available: ${myDoc.title}`);
+function enableNotification(myDoc, notificationCount) {
+  // TEST - Uncomment to view the new local publications in the dev tools (strg + shift + i)
+  console.log(`There is a new publication available: ${myDoc.title}`);
 
   // Notifications API: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
   // Check for permission for notifications of the user
-  if (window.Notification && Notification.permission === "granted") {
-    // build the new notification
-    var n = new Notification(`New publication available: ${myDoc.title}, ${myDoc.year}, ${myDoc.author}`);
+  if(window.Notification && Notification.permission !== "denied") {
+    Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
+      // if there is more than 1 notification, trick firefox into thinking its just 1 by setting a timeout
+      if (notificationCount >= 2) {
+        setTimeout(() => {
+          var n = new Notification('New Publication available:', {
+            body: `${myDoc.title}, ${myDoc.year}, ${myDoc.author}`,
+          });
+        }, 700)
+       } else {
+          var n = new Notification('New Publication available:', {
+            body: `${myDoc.title}, ${myDoc.year}, ${myDoc.author}`,
+          });
+       }
+    });
   }
 }
 

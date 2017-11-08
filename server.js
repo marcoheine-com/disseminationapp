@@ -11,14 +11,14 @@ app.use(bodyParser.urlencoded({ extended: true  }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('The website for the automated dissemination tool is now available at http://localhost:3000')
 })
 
 app.post('/mendeley.html', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   storeDoc(JSON.stringify(req.body));
 
-  // TEST - Uncomment to view the saved documents on the server
+  // TEST - Uncomment to view the saved documents on the server in the terminal
   // console.log(documents);
 })
 

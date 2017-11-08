@@ -64,13 +64,12 @@
         </section>
         <section class="disseminationtool__startSection">
             <div id="notifications" class="disseminationtool__container">
-                <h3>Automated Notifications with Twitter, RSS-Feed and the Browser Push API</h4>
+                <h3>Automated Notifications with Twitter and the Browser Notifications API</h4>
                 <div class="disseminationtool__textWrap">
                     <p>Social Network Sites for scientists are not the only way to practice a modern science communication. As described before, the website of a science institute itself can also be used to improve the dissemination of scientific publications.</p>
                     <p> But there is another tool, which became known with the rise of web 2.0: the microblogging service Twitter. Twitter provides a fast and easy way to share links to more extensive content, like research results or publications<sup><a href="#4" class="disseminationtool__link--noDeco"> [4]</a></sup><sup><a href="#5" class="disseminationtool__link--noDeco"> [5]</a></sup>, therefore it is of great use concerning science communication and the dissemination of scientific publications. </p>
-                    <p>Twitter will be the last step of this automated tool. When the data is loaded via the APIs of the Social Network Sites, every publication gets stored as an object in an array.</p>
-                    <p><b>On every API call there is a check, if the loaded publications are new or already existing in the array. If they are completely new, a new tweet is created and sent, to share the new publication on Twitter automatically.</b></p>
-                    <p>To expand the reach and to adress also non-twitter users, the same is done with Browser Push Notifications and RSS Feeds.</p>
+                    <p>Twitter will be the last step of this automated tool. When the data is loaded via the APIs of the Social Network Sites, firstly every publication gets stored as an object in an array locally and pushed to the localstorage of the users browser and secondly every publications is sent to the server and stored there.</p>
+                    <p><b>On every API call there is a check, if the loaded publications are new or already existing in the localstorage and on the server.</b> If they are completely new to the localstorage a <b>browser push notification</b> is sent out. If they are completely new to the storage on the server <b>a new tweet is created and sent</b>, using the Twitter API, to share the new publication on Twitter automatically.</p>
                 </div>
             </div>
         </section>
@@ -107,5 +106,6 @@
             <a href="mailto:marcokuehbauch@gmail.com">Contact</a>
         </div>
     </footer>
+    <script type="text/javascript" src="assets/js/permission.js"></script>
 </body>
 </html>

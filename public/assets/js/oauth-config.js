@@ -1,14 +1,5 @@
-/**
- * This is an example of the oauth config required to use the implict grant
- * flow aka the client-side flow.
- *
- * This requires no server-to-server interaction at all. The trade-off is you
- * only get access for a limited time and there is no refresh token - after that
- * time expires the user has to log-in again.
- *
- * To use this config copy it to oauth-config.js, fill in your clientId and
- * make sure it is loaded via a script tag in examples/index.html.
- */
+// oauth config required to use the implict grant flow aka the client-side flow.
+
 try {
   window.oauthImplicitGrantConfig = {
     clientId: 4836,

@@ -3,6 +3,7 @@
 
 const rgPlugin = document.querySelector('.rg-plugin');
 
+// make the plugin responsive
 if (document.body.clientWidth >= 600) {
   rgPlugin.setAttribute('data-width', 600);
 }
