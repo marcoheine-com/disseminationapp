@@ -29,7 +29,7 @@ or
 node server
 ```
 
-Both commands will now start the local node server. It can be canceled with:
+Both commands will start the local node server. It can be canceled with:
 ```
 strg + c
 ```
@@ -43,12 +43,33 @@ username: disseminationtool@gmail.com
 password: irixysDissemination2k17
 
 Once the server is started and the connection to the Mendeley API is established
-* all publications from the mendeley account will be loaded on the website
-* they are stored in the localstorage of the browser and a browser push notification is enabled
-* additionally the publications are stored on the server
-* and a tweet about the new publication is sent. The tweets can be found at: https://twitter.com/Disseminatetool
++ all publications from the mendeley account will be loaded on the website
++ they are stored in the localstorage of the browser and a browser push notification is enabled
++ additionally the publications are stored on the server
++ and a tweet about the new publication is sent. The tweets can be found at: https://twitter.com/Disseminatetool
 
 ## Testing & Debugging
 To test the application there are other publication files available in the sample publication folder.
 
-Head over to the mendeley website and adjust the publications by adding new ones or deleting some of them.
+Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running. Make sure to adjust the metadata like author, title and year on mendeley.
+
+Once you reload the page, the new data is loaded and new notifications are sent.
+
+There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific js file.
+
+In the file public/assets/js/mendeleyapi.js
++ line 138: shows if a publication is already stored in the localstorage
++ line 152: lists all publications stored in the localstorage
++ line 262: shows the result of the fetch API
++ line 275: shows if a publication is new to the localstorage, the content of a browser push notification
+
+These tests can be seen in the terminal as they are using the server-side code.
+
+In the file server.js
++ line 22: shows all publications stored on the server
++ line 68: shows the content of the sent tweet
+
+To clear the localstorage of a browser type the following command in the developer tools console:
+```
+localStorage.clear()
+```
