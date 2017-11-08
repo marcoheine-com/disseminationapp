@@ -64,5 +64,7 @@ function postTweet(twitterStatus) {
     if(error){
       console.log(error);
     }
+    // TEST - Uncomment to display the content of the tweet in the terminal
+    // console.log('A new tweet with the following status was sent: ' + twitterStatus)
   });
 }
