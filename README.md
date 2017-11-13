@@ -54,11 +54,18 @@ Once the server is started and the connection to the Mendeley API is established
 * and a tweet about the new publication is sent. The tweets can be found at: https://twitter.com/Disseminatetool
 
 ## Testing & Debugging
+
+### Upload or delete publications on mendeley
+
 To test the application there are other publication files available in the **sample publication** folder.
 
-Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running. **Make sure to add or adjust the metadata like author, title and year on mendeley.**
+Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running.
+
+**Make sure to add or adjust the metadata like author, title and year on mendeley.**
 
 Once you reload the page, the new data is loaded and new notifications are sent.
+
+### Tests in the Code
 
 There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific JavaScript file.
 
@@ -72,7 +79,7 @@ In the file _public/assets/js/mendeleyapi.js_
 
 * line 275: shows if a publication is new to the localstorage, the content of a browser push notification
 
-These tests can be seen in the terminal as they are running on the server.
+The following tests can be seen in the terminal as they are running on the server.
 
 In the file _server.js_
 
