@@ -5,17 +5,19 @@ As a part of the masterthesis **"development of a communication and information 
 
 ### Installation
 
-1. Download the project or clone it from bitbucket.
+* Download the project or clone it from bitbucket.
 
-2. Download and install [NodeJS](https://nodejs.org/en/download/). It is used for the server and the backend of this application.
+* Download and install [NodeJS](https://nodejs.org/en/download/). It is used for the server and the backend of this application.
 
-3. In the terminal, switch to the project folder
+* In the terminal, switch to the project folder
+
 ```
 cd disseminationtool
 ```
 
 
-4. Now the dependancies of the project need to be installed. For this, the Node Package Manager (npm) is used. In the terminal type:
+* Now the dependancies of the project need to be installed. For this, the Node Package Manager (npm) is used. In the terminal type:
+
 ```
 npm install
 ```
