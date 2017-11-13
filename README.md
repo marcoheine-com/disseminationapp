@@ -7,7 +7,7 @@ As a part of the masterthesis **"development of a communication and information 
 
 1. Download the project or clone it from bitbucket.
 
-2. Download and install [NodeJS](https://nodejs.org/en/download/). It is used for the backend of this application.
+2. Download and install [NodeJS](https://nodejs.org/en/download/). It is used for the server and the backend of this application.
 
 3. In the terminal, switch to the project folder
 ```
@@ -37,17 +37,13 @@ strg + c
 
 The automated dissemination tool can now be used at: http://localhost:3000
 
-Once you switch to the mendeley subpage, the connection to the **Mendeley API** is established and a login into a Mendeley Account is required. Use these login data:
-
-**username:** disseminationtool@gmail.com
-
-**password:** irixysDissemination2k17
+Once you switch to the mendeley subpage, the connection to the **Mendeley API** is established and a login into a Mendeley Account is required.
 
 Once the server is started and the connection to the Mendeley API is established
 
 * all publications from the mendeley account will be loaded on the website
 
-* they are stored in the localstorage of the browser and a browser push notification is enabled
+* they are stored in the localstorage of the browser and a web notification is enabled
 
 * additionally the publications are stored on the server
 
@@ -61,7 +57,7 @@ To test the application there are other publication files available in the **sam
 
 Head over to the [mendeley website](https://www.mendeley.com/profiles/dissemination-tool/) and adjust the publications of the profile by adding new ones or deleting some of them, while the server is still running.
 
-**Make sure to add or adjust the metadata like author, title and year on mendeley.**
+**Make sure to add or adjust the metadata of the publications, like author, title and year on mendeley.**
 
 Once you reload the page, the new data is loaded and new notifications are sent.
 
@@ -77,9 +73,9 @@ In the file _public/assets/js/mendeleyapi.js_
 
 * line 263: shows the result of the fetch API
 
-* line 275: shows if a publication is new to the localstorage, the content of a browser push notification
+* line 275: shows if a publication is new to the localstorage, the content of a web notification
 
-The following tests can be seen in the terminal as they are running on the server.
+The following tests can be seen in the terminal, as they are running on the server.
 
 In the file _server.js_
 
@@ -92,3 +88,5 @@ To clear the localstorage of a browser type the following command in the develop
 ```
 localStorage.clear()
 ```
+
+The Twitter API prevents tweets with identical content. To test the automated tweets, log into the twitter account for this prototype and delete the already existing tweets.
