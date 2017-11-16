@@ -1,5 +1,5 @@
-# Automated Dissemination Tool
-As a part of the masterthesis **"development of a communication and information concept for the dissemination of scientific results and publications"** this automated tool was developed to improve the dissemination of scientific results and publications from the IRIXYS Center.
+# Automated Dissemination Application
+As a part of the masterthesis **"development of a communication and information concept for the dissemination of scientific results and publications"** this automated application was developed to improve the dissemination of scientific results and publications from the IRIXYS Center.
 
 ## Getting started
 
@@ -37,7 +37,7 @@ Both commands will start the local node server. It can be canceled with:
 strg + c
 ```
 
-The automated dissemination tool can now be used at: http://localhost:3000
+The automated dissemination application can now be used at: http://localhost:3000
 
 Once you switch to the mendeley subpage, the connection to the **Mendeley API** is established and a login into a Mendeley Account is required.
 
@@ -65,7 +65,7 @@ Once you reload the page, the new data is loaded and new notifications are sent.
 
 ### Tests in the Code
 
-There are several tests to check the different steps of the tool in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific JavaScript file.
+There are several tests to check the different steps of the application in the developer tools of the browser(str + shift + i). They need to be uncommented in the specific JavaScript file.
 
 In the file _public/assets/js/mendeleyapi.js_
 
