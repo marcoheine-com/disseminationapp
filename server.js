@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true  }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, function () {
-  console.log('The website for the automated dissemination tool is now available at http://localhost:3000')
+  console.log('The website for the automated dissemination application is now available at http://localhost:3000')
 })
 
 app.post('/mendeley.html', (req, res) => {
@@ -19,7 +19,7 @@ app.post('/mendeley.html', (req, res) => {
   storeDoc(JSON.stringify(req.body));
 
   // TEST - Uncomment to view the saved documents on the server in the terminal
-  // console.log(documents);
+  console.log(documents);
 })
 
 
@@ -65,6 +65,6 @@ function postTweet(twitterStatus) {
       console.log(error);
     }
     // TEST - Uncomment to display the content of the tweet in the terminal
-    // console.log('A new tweet with the following status was sent: ' + twitterStatus)
+    console.log('A new tweet with the following status was sent: ' + twitterStatus)
   });
 }

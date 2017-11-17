@@ -18,7 +18,6 @@
 // get all profile data
 function getProfile() {
   MendeleySDK.API.profiles.retrieveByEmail(
-    // NEEDS FIX: must be changed to dissemination tool email
     'disseminationtool@gmail.com'
   ).then(myProfile => {
     displayProfile(myProfile);
@@ -63,7 +62,7 @@ const myDocs = JSON.parse(localStorage.getItem('myDocs')) || [];
 // store the publications in an array
 function saveDocuments(docs) {
   // author array for the statistics
-  const totalAuthors = []; // needs to exist additionally, because this one should eliminate duplicates
+  const totalAuthors = []; // needs to exist additionally to allAuthors, because this one should eliminate duplicates
 
   // a counter for the notifications needs to be added, to allow multiple notifications in firefox
   let notificationCount = 0;
@@ -274,7 +273,6 @@ function enableNotification(myDoc, notificationCount) {
   // TEST - Uncomment to view the new local publications in the dev tools (strg + shift + i)
   console.log(`There is a new publication available: ${myDoc.title}`);
 
-  // Notifications API: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
   // Check for permission for notifications of the user
   if(window.Notification && Notification.permission !== "denied") {
     Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
