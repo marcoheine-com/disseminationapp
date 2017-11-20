@@ -116,7 +116,7 @@ function saveDocuments(docs) {
       // already existing, so do nothing
 
       // TEST - Uncomment to check in dev tools (strg + shift + i), which publications are already in the localstorage
-      console.log(`The publication ${myDoc.title} is already stored in the localstorage.`);
+      // console.log(`The publication ${myDoc.title} is already stored in the localstorage.`);
 
     } else {
       myDocs.push(myDoc);
@@ -133,7 +133,7 @@ function saveDocuments(docs) {
   localStorage.setItem('myDocs', JSON.stringify(myDocs));
 
   // TEST - Uncomment to view all publications available in the localstorage in the dev tools (strg + shift + i)
-  console.table(JSON.parse(localStorage.getItem('myDocs')));
+  // console.table(JSON.parse(localStorage.getItem('myDocs')));
 
   displayTotalNum(myDocs);
   displayAllAuthors(totalAuthors);
@@ -271,7 +271,7 @@ function sendDataToServer(myDoc) {
 // function to build notifications
 function enableNotification(myDoc, notificationCount) {
   // TEST - Uncomment to view the new local publications in the dev tools (strg + shift + i)
-  console.log(`There is a new publication available: ${myDoc.title}`);
+  // console.log(`There is a new publication available: ${myDoc.title}`);
 
   // Check for permission for notifications of the user
   if(window.Notification && Notification.permission !== "denied") {
