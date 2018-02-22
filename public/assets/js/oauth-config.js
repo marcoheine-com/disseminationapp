@@ -1,8 +1,8 @@
 // oauth config required to use the implict grant flow aka the client-side flow.
-
+// make sure to add your own client ID in line 5
 try {
   window.oauthImplicitGrantConfig = {
-    clientId: 4836,
+    clientId: 'YOUR CLIENT ID',
     responseType: 'token'
   };
 } catch (e) {
