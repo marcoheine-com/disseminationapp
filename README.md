@@ -21,6 +21,7 @@ cd disseminationtool
 ```
 npm install
 ```
+Before you can use the application you need to add your own api authentification data for the twitter API in twitterconfig.js and for the mendeley API in oauth-config.js.
 
 ### Usage
 Now the application is ready to go. In the terminal type:
