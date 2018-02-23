@@ -1,5 +1,5 @@
 # Automated Dissemination Application
-As a part of the masterthesis **"development of a communication and information concept for the dissemination of scientific results and publications"** this automated application was developed to improve the dissemination of scientific results and publications from the IRIXYS Center.
+As a part of the masterthesis **"development of a communication and information concept for the dissemination of scientific results and publications"** this automated application was developed to improve the dissemination of scientific results and publications of an institute of the university of Passau.
 
 ## Getting started
 
